@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Profile - Scholarship Navigator</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/student profile.css' %}">
+</head>
+
+<body>
+
+    <marquee behavior="" direction="right">
+        ENTER VALID INFORMATION
+    </marquee>
+
+    <div class="container">
+
+        <div class="profile-card">
+
+            <!-- Header -->
+            <div class="header">
+                <h1>🎓 Scholarship Navigator</h1>
+                <p>Student Profile</p>
+            </div>
+
+
+            <!-- Main Form -->
+            <form method="POST"
+                  action="{% url 'student_profile' %}"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+                {% if success %}
+                   <p class="success-message">{{ success }}</p>
+                {% endif %}
+
+
+                <!-- Personal Information -->
+                <section>
+
+                    <h2>👤 Personal Information</h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text"
+                                   name="full_name"
+                                   placeholder="Enter your full name"
+                                   value="{{ profile.full_name }}">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date"
+                                   name="dob">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Gender</label>
+
+                            <select name="gender">
+                                <option>Select Gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+
+                            <input type="tel"
+                                   name="mobile"
+                                   placeholder="Enter mobile number">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Email</label>
+
+                            <input type="email"
+                                   name="email"
+                                   placeholder="Enter email">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>State</label>
+
+                            <select name="state">
+                                <option>Select State</option>
+                                <option>Maharashtra</option>
+                                <option>Gujarat</option>
+                                <option>Karnataka</option>
+                                <option>Madhya Pradesh</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>District</label>
+
+                            <input type="text"
+                                   name="district"
+                                   placeholder="Enter district">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Taluka</label>
+
+                            <input type="text"
+                                   name="taluka"
+                                   placeholder="Enter Taluka">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>City / Village</label>
+
+                            <input type="text"
+                                   name="city_village"
+                                   placeholder="Enter city or village">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Pincode</label>
+
+                            <input type="text"
+                                   name="pincode"
+                                   placeholder="Pincode">
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- Education Information -->
+                <section>
+
+                    <h2>🎓 Education Information</h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Education Level</label>
+
+                            <select name="education_level">
+                                <option>Select Education Level</option>
+                                <option>12th</option>
+                                <option>Diploma</option>
+                                <option>Undergraduate</option>
+                                <option>Postgraduate</option>
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Course Name</label>
+
+                            <input type="text"
+                                   name="course_name"
+                                   placeholder="Enter course name">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>College / Institute</label>
+
+                            <input type="text"
+                                   name="college"
+                                   placeholder="Enter college name">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Current Year</label>
+
+                            <select name="current_year">
+
+                                <option>Select Year</option>
+                                <option>First Year</option>
+                                <option>Second Year</option>
+                                <option>Third Year</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+                             <label>University / Board</label>
+
+                             <select name="university_board">
+                                 <option value="" disabled selected>Select University / Board</option>
+                                 <option>SPPU</option>
+                                 <option>CBSE</option>
+                                 <option>Other</option>
+                             </select>
+                        </div>
+                        
+                        <div class="form-group">
+                        <label>Percentage / CGPA</label>
+                        <input type="number"
+                          name="percentage_cgpa"
+                          step="0.01"
+                          value="{{ profile.percentage_cgpa }}"
+                          placeholder="Enter percentage or CGPA"
+                         required>
+                        </div>
+
+                        <div class="form-group">
+                        <label>Percentage Type</label>
+                    <select name="percentage_type" required>
+                        <option value="">Select Type</option>
+                        <option value="Percentage">Percentage</option>
+                        <option value="CGPA">CGPA</option>
+                    </select>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Admission Type</label>
+
+                            <select name="admission_type">
+
+                                <option value="" disabled selected >Select Type</option>
+                                <option>Regular</option>
+                                <option>Distance</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- Financial Information -->
+                <section>
+
+                    <h2>💰 Financial & Eligibility Information</h2>
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group">
+
+                            <label>Annual Family Income</label>
+
+                            <input type="number"
+                                   name="annual_income"
+                                   placeholder="Enter annual income">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Category</label>
+
+                            <select name="category">
+                                <option value=""disabled selected>Select Category</option>
+
+                        
+                                <option>General</option>
+                                <option>OBC</option>
+                                <option>SC</option>
+                                <option>ST</option>
+                                <option>EWS</option>
+                                <option>Other</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Parent / Guardian Occupation</label>
+
+                            <input type="text"
+                                   name="parent_occupation"
+                                   placeholder="Enter occupation">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Number of Family Members</label>
+
+                            <input type="number"
+                                   name="family_members"
+                                   placeholder="Enter number">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Disability Status</label>
+
+                            <select name="disability_status">
+
+                                <option>Select Status</option>
+                                <option>No</option>
+                                <option>Yes</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Hostel / Day Scholar</label>
+
+                            <select name="residence_type">
+
+                                <option>Select</option>
+                                <option>Hostel</option>
+                                <option>Day Scholar</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Domicile State</label>
+
+                            <input type="text"
+                                   name="domicile_state"
+                                   placeholder="Enter domicile state">
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- Scholarship Preference -->
+                <section>
+
+                    <h2>🎯 Scholarship Preference</h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Preferred Scholarship Type</label>
+
+                            <select name="scholarship_type">
+
+                                <option>Select Type</option>
+                                <option>Merit Based</option>
+                                <option>Need Based</option>
+                                <option>Category Based</option>
+                                <option>Government</option>
+                                <option>Private</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+               
+                <section>
+                    <h2>Eligible Scholarship</h2>
+                      {% if eligible_scholarships %}
+
+        {% for scholarship in eligible_scholarships %}
+
+            <div class="scholarship-card">
+
+                <h3>{{ scholarship.name }}</h3>
+
+                <p>
+                    <strong>Department:</strong>
+                    {{ scholarship.department }}
+                </p>
+
+                <p>
+                    <strong>Category:</strong>
+                    {{ scholarship.category }}
+                </p>
+
+                <p>
+                    {{ scholarship.description }}
+                </p>
+
+                {% if scholarship.official_link %}
+                    <a href="{{ scholarship.official_link }}" target="_blank">
+                        Official Website
+                    </a>
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+  
+    {% else %}
+
+        <p>No eligible scholarships found.</p>
+
+    {% endif %}
+
+</section>
+
+
+                <!-- Save Button -->
+                <div class="button-area">
+
+                    <button type="submit">
+                        Save Profile
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

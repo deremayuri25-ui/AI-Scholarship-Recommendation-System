@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scholarship Recommendations</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/scholarships.css' %}?v=2">
+
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <!-- Header -->
+
+        <header class="page-header">
+
+            <div>
+
+                <h1>🎓 Scholarship Navigator</h1>
+
+                <p>
+                    Personalized Scholarship Recommendations
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- Main Content -->
+
+        <main class="content">
+
+            <!-- Title -->
+
+            <div class="title-section">
+
+                <h2>
+                    Scholarships Recommended for You
+                </h2>
+
+                <p>
+                    Based on the information provided in your student profile,
+                    these scholarships match your eligibility criteria.
+                </p>
+
+            </div>
+
+
+            <!-- Scholarships -->
+
+            {% if eligible_scholarships %}
+
+                <div class="scholarship-list">
+
+                    {% for scholarship in eligible_scholarships %}
+
+                        <div class="scholarship-card">
+
+                            <!-- Card Header -->
+
+                            <div class="card-header">
+
+                                <h3>
+                                    {{ scholarship.name }}
+                                </h3>
+
+                                <span class="eligible-badge">
+                                    ✓ Eligible
+                                </span>
+                            </div>
+
+                            <div class="match-score">
+                                  ⭐ Match Score: {{ scholarship.match_score }}%
+                            </div>
+
+                            
+
+
+                            <!-- Scholarship Information -->
+
+                            <div class="scholarship-info">
+
+                                <div class="info-item">
+
+                                    <strong>
+                                        Department
+                                    </strong>
+
+                                    <span>
+                                        {{ scholarship.department }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="info-item">
+
+                                    <strong>
+                                        Category
+                                    </strong>
+
+                                    <span>
+                                        {{ scholarship.category }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="info-item">
+
+                                    <strong>
+                                        Education Level
+                                    </strong>
+
+                                    <span>
+                                        {{ scholarship.education_level }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="info-item">
+
+                                    <strong>
+                                        Maximum Family Income
+                                    </strong>
+
+                                    <span>
+                                        ₹{{ scholarship.maximum_income }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Why Recommended -->
+
+                            <div class="recommendation-box">
+
+                                <strong>
+                                    💡 Why Recommended?
+                                </strong>
+
+                                <ul>
+
+                                    {% for reason in scholarship.reasons %}
+
+                                        <li>
+                                            {{ reason }}
+                                        </li>
+
+                                    {% endfor %}
+
+                                </ul>
+
+                            </div>
+
+
+                            <!-- Description -->
+
+                            {% if scholarship.description %}
+
+                                <div class="description">
+
+                                    <strong>
+                                        Description
+                                    </strong>
+
+                                    <p>
+                                        {{ scholarship.description }}
+                                    </p>
+
+                                </div>
+
+                            {% endif %}
+
+                            {% if scholarship.required_document %}
+
+                       <div class="documents-box">
+
+                         <strong>
+                            📄 Required Documents
+                         </strong>
+
+                         <ul>
+                           {% for document in scholarship.required_document.splitlines %}
+                                 <li>{{ document }}</li>
+                           {% endfor %}
+                         </ul>
+
+                        </div>
+
+                      {% endif %}
+                            <!-- Official Website -->
+                      {% if scholarship.official_link %}
+
+                           <a
+                               href="{{ scholarship.official_link }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="official-btn"
+                            >
+                                 Apply Now →
+                           </a>
+
+                      {% endif %}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+            {% else %}
+
+                <!-- No Scholarship -->
+
+                <div class="no-scholarship">
+
+                    <div class="no-icon">
+                        🔍
+                    </div>
+
+                    <h3>
+                        No Eligible Scholarships Found
+                    </h3>
+
+                    <p>
+                        Based on the information provided in your profile,
+                        no matching scholarships were found.
+                    </p>
+
+                    <a href="{% url 'student_profile' %}">
+                        Update My Profile
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

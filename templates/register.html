@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scholarship Navigator - Register</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/register.css' %}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="register-card">
+
+            <h1>🎓 Scholarship Navigator</h1>
+
+            <h2>Create Account</h2>
+
+            <p class="subtitle">
+                Register to find scholarships for you
+            </p>
+            {% if error %}
+              <p>{{ error }}</p>
+              {% endif %}
+              {% if success %}
+              <p>{{success}}</p>
+              {% endif %}
+            <form method="POST" action="{%url 'register'%}">
+                 {% csrf_token %}
+                <label>Full Name</label>
+                <input 
+                    type="text"
+                    name="full_name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+                <label>Email</label>
+                <input 
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <label>Mobile Number</label>
+                <input 
+                    type="tel"
+                    name="mobile"
+                    placeholder="Enter your mobile number"
+                    required
+                >
+
+                <label>Password</label>
+                <input 
+                    type="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                >
+
+                <label>Confirm Password</label>
+                <input 
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Confirm your password"
+                    required
+                >
+
+                <button type="submit">
+                    Register
+                </button>
+
+            </form>
+
+            <p class="login">
+                Already have an account?
+                <a href="{% url 'login' %}">Login</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+
